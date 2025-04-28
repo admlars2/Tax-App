@@ -14,6 +14,10 @@ A simple financial calculator web application built with **FastAPI** and **Jinja
 - Responsive UI built with **Bootstrap 5**.
 - API endpoints for each calculator.
 
+## Live Demo
+
+Check out the live version of the app here: [Tax App](https://tax-app-production.up.railway.app/)
+
 ## Installation
 
 ### Prerequisites
