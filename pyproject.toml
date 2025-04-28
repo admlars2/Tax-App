@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "tax_app"
+version = "0.1.0"
+description = "Financial Calculator"
+authors = ["Adam Larson <alarson7767@sdsu.edu>"]
+
+[tool.poetry.dependencies]
+python  = "^3.11"
+fastapi = "^0.115.12"
+uvicorn = {extras = ["standard"], version = "^0.34.1"}
+jinja2  = "^3.1.6"
+pydantic = "^2.11.3"
+
+[tool.poetry.scripts]
+dev = "tax_app:dev"
+prod = "tax_app:prod"
+
+[build-system]
+requires    = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

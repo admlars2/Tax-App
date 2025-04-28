@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Compound Interest Calculator</title>
+        <link
+            rel="icon"
+            href="{{ url_for('static', path='images/icon.png') }}"
+            type="image/png"
+        >
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+        <nav class="navbar navbar-expand-lg bg-white">
+            <div class="container">
+                <a class="navbar-brand" href="/">Calculator App</a>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/compound">Compound</a>
+                    <a class="nav-link" href="/mortgage">Mortgage</a>
+                    <a class="nav-link" href="/tax">Tax</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container py-5">
+            <h2 class="mb-4">Compound Interest</h2>
+            <form id="compound-form" class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label">Principal ($)</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="principal"
+                        class="form-control"
+                        required
+                    />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Rate (%)</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="rate"
+                        class="form-control"
+                        required
+                    />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Time (years)</label>
+                    <input
+                        type="number"
+                        name="time"
+                        class="form-control"
+                        required
+                    />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Compounds/year</label>
+                    <input
+                        type="number"
+                        name="n"
+                        class="form-control"
+                        required
+                    />
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Calculate</button>
+                </div>
+            </form>
+
+            <div id="compound-result" class="fs-5"></div>
+        </div>
+
+        <footer class="mt-auto text-center pb-3">
+            <a href="https://www.flaticon.com/free-icons/tax" title="tax icons">Tax icons created by Freepik - Flaticon</a> 
+        </footer>
+
+        <script>
+            document
+            .getElementById("compound-form")
+            .addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(e.target));
+                const res = await fetch("/api/compound", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                });
+                const json = await res.json();
+                document.getElementById(
+                    "compound-result"
+                ).innerText = `Amount: $${json.amount} (Interest: $${json.interest})`;
+            });
+        </script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        ></script>
+    </body>
+</html>
